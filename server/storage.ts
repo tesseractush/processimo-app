@@ -201,7 +201,9 @@ export class MemStorage implements IStorage {
       });
     }
     
-    // Create sample Agent Teams
+    // Create Agent Workforce teams with their workflows
+    
+    // 1. LexiSuite Workflow
     const lexiSuiteWorkflow = {
       steps: [
         { 
@@ -227,9 +229,115 @@ export class MemStorage implements IStorage {
       ]
     };
     
-    // Create LexiSuite team - using a different approach to avoid Promise issues
-    const lexiSuiteTeamId = this.teamId++;
+    // 2. FinGuard AI Workflow
+    const finGuardWorkflow = {
+      steps: [
+        { 
+          step: 1, 
+          description: "KYC-VeriBot verifies new clients' identities",
+          agent: "KYC-VeriBot"
+        },
+        { 
+          step: 2, 
+          description: "RiskScan AI flags unusual financial patterns",
+          agent: "RiskScan AI" 
+        },
+        { 
+          step: 3, 
+          description: "ReguBot ensures transactions comply with financial laws",
+          agent: "ReguBot"
+        },
+        { 
+          step: 4, 
+          description: "PredictRisk AI assigns a risk score to potential defaulters",
+          agent: "PredictRisk AI"
+        }
+      ]
+    };
+    
+    // 3. SalesGenie AI Workflow
+    const salesGenieWorkflow = {
+      steps: [
+        { 
+          step: 1, 
+          description: "LeadBot finds decision-makers & gathers their contact details",
+          agent: "LeadBot"
+        },
+        { 
+          step: 2, 
+          description: "OutreachBot sends personalized messages & nurtures responses",
+          agent: "OutreachBot" 
+        },
+        { 
+          step: 3, 
+          description: "CRM-Sync AI logs all activity automatically",
+          agent: "CRM-Sync AI"
+        },
+        { 
+          step: 4, 
+          description: "DealAnalyzer AI scores leads based on engagement & prioritizes high-value ones",
+          agent: "DealAnalyzer AI"
+        }
+      ]
+    };
+    
+    // 4. MediAssist AI Workflow
+    const mediAssistWorkflow = {
+      steps: [
+        { 
+          step: 1, 
+          description: "MedTranscribe AI converts consultations into structured text",
+          agent: "MedTranscribe AI"
+        },
+        { 
+          step: 2, 
+          description: "MedDoc AI generates medical records automatically",
+          agent: "MedDoc AI" 
+        },
+        { 
+          step: 3, 
+          description: "ComplianceCheck AI ensures adherence to HIPAA & medical compliance",
+          agent: "ComplianceCheck AI"
+        },
+        { 
+          step: 4, 
+          description: "RxGen AI suggests appropriate medications based on medical history",
+          agent: "RxGen AI"
+        }
+      ]
+    };
+    
+    // 5. OpsFlow AI Workflow
+    const opsFlowWorkflow = {
+      steps: [
+        { 
+          step: 1, 
+          description: "TaskManager AI assigns & schedules tasks based on deadlines",
+          agent: "TaskManager AI"
+        },
+        { 
+          step: 2, 
+          description: "DataInsights AI gathers business KPIs & tracks performance",
+          agent: "DataInsights AI" 
+        },
+        { 
+          step: 3, 
+          description: "Notifier AI keeps teams updated with real-time reports",
+          agent: "Notifier AI"
+        },
+        { 
+          step: 4, 
+          description: "ProcessOptimizer AI flags inefficiencies & suggests workflow improvements",
+          agent: "ProcessOptimizer AI"
+        }
+      ]
+    };
+    
     const now = new Date();
+    
+    // Create all teams
+    // 1. LexiSuite team
+    const lexiSuiteTeamId = this.teamId++;
     const lexiSuiteTeam: AgentTeam = {
       id: lexiSuiteTeamId,
       name: "LexiSuite",
@@ -240,7 +348,7 @@ export class MemStorage implements IStorage {
       impact: "Saves 80% of time in contract drafting & legal research",
       workflow: lexiSuiteWorkflow,
       iconClass: "bx-gavel",
-      gradientClass: "from-amber-500 to-red-500",
+      gradientClass: "from-blue-500 to-blue-700",
       isPopular: true,
       isFeatured: true,
       createdBy: 1,
@@ -248,7 +356,88 @@ export class MemStorage implements IStorage {
     };
     this.agentTeams.set(lexiSuiteTeamId, lexiSuiteTeam);
     
-    // Create team agents
+    // 2. FinGuard AI team
+    const finGuardTeamId = this.teamId++;
+    const finGuardTeam: AgentTeam = {
+      id: finGuardTeamId,
+      name: "FinGuard AI",
+      description: "AI-Driven Financial Risk & Compliance Management",
+      category: "Finance",
+      price: 12999, // $129.99
+      target: "Banks, Fintech Companies, Regulatory Bodies",
+      impact: "Reduces fraud & ensures compliance 10x faster than manual audits",
+      workflow: finGuardWorkflow,
+      iconClass: "bx-money-withdraw",
+      gradientClass: "from-green-500 to-green-700",
+      isPopular: true,
+      isFeatured: true,
+      createdBy: 1,
+      createdAt: now
+    };
+    this.agentTeams.set(finGuardTeamId, finGuardTeam);
+    
+    // 3. SalesGenie AI team
+    const salesGenieTeamId = this.teamId++;
+    const salesGenieTeam: AgentTeam = {
+      id: salesGenieTeamId,
+      name: "SalesGenie AI",
+      description: "AI-Powered Enterprise Sales Automation",
+      category: "Sales",
+      price: 8999, // $89.99
+      target: "B2B Sales Teams, SaaS Companies, Growth Marketers",
+      impact: "10x increase in outreach efficiency, higher conversion rates",
+      workflow: salesGenieWorkflow,
+      iconClass: "bx-trending-up",
+      gradientClass: "from-pink-500 to-pink-700",
+      isPopular: true,
+      isFeatured: true,
+      createdBy: 1,
+      createdAt: now
+    };
+    this.agentTeams.set(salesGenieTeamId, salesGenieTeam);
+    
+    // 4. MediAssist AI team
+    const mediAssistTeamId = this.teamId++;
+    const mediAssistTeam: AgentTeam = {
+      id: mediAssistTeamId,
+      name: "MediAssist AI",
+      description: "AI-Driven Healthcare Documentation & Compliance",
+      category: "Healthcare",
+      price: 11999, // $119.99
+      target: "Hospitals, Clinics, Healthcare Enterprises",
+      impact: "Reduces doctor's administrative work by 70%, improving patient care",
+      workflow: mediAssistWorkflow,
+      iconClass: "bx-plus-medical",
+      gradientClass: "from-purple-500 to-purple-700",
+      isPopular: true,
+      isFeatured: true,
+      createdBy: 1,
+      createdAt: now
+    };
+    this.agentTeams.set(mediAssistTeamId, mediAssistTeam);
+    
+    // 5. OpsFlow AI team
+    const opsFlowTeamId = this.teamId++;
+    const opsFlowTeam: AgentTeam = {
+      id: opsFlowTeamId,
+      name: "OpsFlow AI",
+      description: "AI for Automated Business Operations & Workflow Optimization",
+      category: "Operations",
+      price: 7999, // $79.99
+      target: "Enterprises, Large Teams, Project Managers",
+      impact: "Boosts productivity, saves 30–40% in workflow execution time",
+      workflow: opsFlowWorkflow,
+      iconClass: "bx-cog",
+      gradientClass: "from-cyan-500 to-cyan-700",
+      isPopular: true,
+      isFeatured: true,
+      createdBy: 1,
+      createdAt: now
+    };
+    this.agentTeams.set(opsFlowTeamId, opsFlowTeam);
+    
+    // Create team agents for each team
+    // 1. LexiSuite agents
     const lexiSuiteAgents = [
       {
         name: "ContractBot",
@@ -257,8 +446,8 @@ export class MemStorage implements IStorage {
         category: "Legal",
         features: "Document templates, clause generation, customization options",
         iconClass: "bx-file-blank",
-        iconBgClass: "bg-amber-100",
-        gradientClass: "from-amber-500 to-red-500",
+        iconBgClass: "bg-blue-100",
+        gradientClass: "from-blue-500 to-blue-600",
         teamId: lexiSuiteTeamId,
         teamRole: "Document Generation",
         createdBy: 1
@@ -270,8 +459,8 @@ export class MemStorage implements IStorage {
         category: "Legal",
         features: "Clause checking, compliance verification, risk detection",
         iconClass: "bx-search",
-        iconBgClass: "bg-amber-100",
-        gradientClass: "from-amber-600 to-red-600",
+        iconBgClass: "bg-blue-100",
+        gradientClass: "from-blue-600 to-blue-700",
         teamId: lexiSuiteTeamId,
         teamRole: "Compliance Analysis",
         createdBy: 1
@@ -283,8 +472,8 @@ export class MemStorage implements IStorage {
         category: "Legal",
         features: "Case law search, precedent analysis, legal research",
         iconClass: "bx-book",
-        iconBgClass: "bg-amber-100",
-        gradientClass: "from-amber-700 to-red-700",
+        iconBgClass: "bg-blue-100",
+        gradientClass: "from-blue-700 to-blue-800",
         teamId: lexiSuiteTeamId,
         teamRole: "Legal Research",
         createdBy: 1
@@ -296,19 +485,242 @@ export class MemStorage implements IStorage {
         category: "Legal",
         features: "Background checks, risk assessment, deal verification",
         iconClass: "bx-shield",
-        iconBgClass: "bg-amber-100",
-        gradientClass: "from-amber-800 to-red-800",
+        iconBgClass: "bg-blue-100",
+        gradientClass: "from-blue-800 to-blue-900",
         teamId: lexiSuiteTeamId,
         teamRole: "Risk Assessment",
         createdBy: 1
       }
     ];
     
-    for (const agent of lexiSuiteAgents) {
-      this.createAgent(agent);
-    }
+    // 2. FinGuard AI agents
+    const finGuardAgents = [
+      {
+        name: "RiskScan AI",
+        description: "Monitors transactions & financial statements for fraud detection.",
+        price: 3499,
+        category: "Finance",
+        features: "Fraud detection, transaction monitoring, anomaly detection",
+        iconClass: "bx-chart",
+        iconBgClass: "bg-green-100",
+        gradientClass: "from-green-500 to-green-600",
+        teamId: finGuardTeamId,
+        teamRole: "Risk Monitoring",
+        createdBy: 1
+      },
+      {
+        name: "ReguBot",
+        description: "RAG-powered compliance checker (validates regulatory adherence).",
+        price: 3299,
+        category: "Finance",
+        features: "Regulatory compliance, audit trails, policy enforcement",
+        iconClass: "bx-check-shield",
+        iconBgClass: "bg-green-100",
+        gradientClass: "from-green-600 to-green-700",
+        teamId: finGuardTeamId,
+        teamRole: "Compliance Checking",
+        createdBy: 1
+      },
+      {
+        name: "KYC-VeriBot",
+        description: "Automated identity & document verification for onboarding.",
+        price: 2999,
+        category: "Finance",
+        features: "Identity verification, document analysis, fraud prevention",
+        iconClass: "bx-user-check",
+        iconBgClass: "bg-green-100",
+        gradientClass: "from-green-700 to-green-800",
+        teamId: finGuardTeamId,
+        teamRole: "Identity Verification",
+        createdBy: 1
+      },
+      {
+        name: "PredictRisk AI",
+        description: "Machine-learning agent predicting potential loan defaults.",
+        price: 3799,
+        category: "Finance",
+        features: "Risk prediction, credit scoring, default analysis",
+        iconClass: "bx-trending-down",
+        iconBgClass: "bg-green-100",
+        gradientClass: "from-green-800 to-green-900",
+        teamId: finGuardTeamId,
+        teamRole: "Risk Prediction",
+        createdBy: 1
+      }
+    ];
     
-    // Add other teams as needed - for simplicity I'm just adding one for now
+    // 3. SalesGenie AI agents
+    const salesGenieAgents = [
+      {
+        name: "LeadBot",
+        description: "AI-driven LinkedIn & web scraping agent for finding qualified leads.",
+        price: 2499,
+        category: "Sales",
+        features: "Lead generation, contact discovery, qualification",
+        iconClass: "bx-user-plus",
+        iconBgClass: "bg-pink-100",
+        gradientClass: "from-pink-500 to-pink-600",
+        teamId: salesGenieTeamId,
+        teamRole: "Lead Generation",
+        createdBy: 1
+      },
+      {
+        name: "OutreachBot",
+        description: "Personalized email & LinkedIn message generation with follow-ups.",
+        price: 2299,
+        category: "Sales",
+        features: "Message personalization, follow-up sequences, response tracking",
+        iconClass: "bx-envelope",
+        iconBgClass: "bg-pink-100",
+        gradientClass: "from-pink-600 to-pink-700",
+        teamId: salesGenieTeamId,
+        teamRole: "Outreach Automation",
+        createdBy: 1
+      },
+      {
+        name: "CRM-Sync AI",
+        description: "Auto-updates leads & responses in HubSpot/Salesforce.",
+        price: 1999,
+        category: "Sales",
+        features: "CRM integration, activity logging, data synchronization",
+        iconClass: "bx-sync",
+        iconBgClass: "bg-pink-100",
+        gradientClass: "from-pink-700 to-pink-800",
+        teamId: salesGenieTeamId,
+        teamRole: "CRM Integration",
+        createdBy: 1
+      },
+      {
+        name: "DealAnalyzer AI",
+        description: "Predicts likelihood of lead conversion based on engagement data.",
+        price: 2799,
+        category: "Sales",
+        features: "Conversion prediction, opportunity scoring, pipeline analysis",
+        iconClass: "bx-line-chart",
+        iconBgClass: "bg-pink-100", 
+        gradientClass: "from-pink-800 to-pink-900",
+        teamId: salesGenieTeamId,
+        teamRole: "Deal Analysis",
+        createdBy: 1
+      }
+    ];
+    
+    // 4. MediAssist AI agents
+    const mediAssistAgents = [
+      {
+        name: "MedTranscribe AI",
+        description: "Real-time doctor-patient conversation transcription.",
+        price: 2999,
+        category: "Healthcare",
+        features: "Speech-to-text, medical terminology recognition, real-time transcription",
+        iconClass: "bx-microphone",
+        iconBgClass: "bg-purple-100",
+        gradientClass: "from-purple-500 to-purple-600",
+        teamId: mediAssistTeamId,
+        teamRole: "Transcription",
+        createdBy: 1
+      },
+      {
+        name: "MedDoc AI",
+        description: "Generates structured medical reports from transcripts.",
+        price: 3199,
+        category: "Healthcare",
+        features: "Report generation, medical formatting, template customization",
+        iconClass: "bx-file-blank",
+        iconBgClass: "bg-purple-100",
+        gradientClass: "from-purple-600 to-purple-700",
+        teamId: mediAssistTeamId,
+        teamRole: "Documentation",
+        createdBy: 1
+      },
+      {
+        name: "ComplianceCheck AI",
+        description: "Ensures reports comply with health regulations.",
+        price: 2899,
+        category: "Healthcare",
+        features: "HIPAA compliance, medical standards verification, audit preparation",
+        iconClass: "bx-check-circle",
+        iconBgClass: "bg-purple-100",
+        gradientClass: "from-purple-700 to-purple-800",
+        teamId: mediAssistTeamId,
+        teamRole: "Compliance",
+        createdBy: 1
+      },
+      {
+        name: "RxGen AI",
+        description: "AI-based prescription recommendation assistant.",
+        price: 3499,
+        category: "Healthcare",
+        features: "Medication suggestions, drug interaction checks, dosage recommendations",
+        iconClass: "bx-capsule",
+        iconBgClass: "bg-purple-100",
+        gradientClass: "from-purple-800 to-purple-900",
+        teamId: mediAssistTeamId,
+        teamRole: "Prescription",
+        createdBy: 1
+      }
+    ];
+    
+    // 5. OpsFlow AI agents
+    const opsFlowAgents = [
+      {
+        name: "TaskManager AI",
+        description: "Auto-schedules & prioritizes tasks for teams.",
+        price: 1999,
+        category: "Operations",
+        features: "Task scheduling, priority management, deadline tracking",
+        iconClass: "bx-task",
+        iconBgClass: "bg-cyan-100",
+        gradientClass: "from-cyan-500 to-cyan-600",
+        teamId: opsFlowTeamId,
+        teamRole: "Task Management",
+        createdBy: 1
+      },
+      {
+        name: "DataInsights AI",
+        description: "Pulls & visualizes operational metrics from databases.",
+        price: 2499,
+        category: "Operations",
+        features: "Data visualization, metrics tracking, performance dashboards",
+        iconClass: "bx-bar-chart-alt-2",
+        iconBgClass: "bg-cyan-100",
+        gradientClass: "from-cyan-600 to-cyan-700",
+        teamId: opsFlowTeamId,
+        teamRole: "Analytics",
+        createdBy: 1
+      },
+      {
+        name: "Notifier AI",
+        description: "Sends automatic updates & reminders (Slack, Email, WhatsApp).",
+        price: 1799,
+        category: "Operations",
+        features: "Notifications, reminders, multi-channel messaging",
+        iconClass: "bx-bell",
+        iconBgClass: "bg-cyan-100",
+        gradientClass: "from-cyan-700 to-cyan-800",
+        teamId: opsFlowTeamId,
+        teamRole: "Notifications",
+        createdBy: 1
+      },
+      {
+        name: "ProcessOptimizer AI",
+        description: "Identifies bottlenecks & suggests efficiency improvements.",
+        price: 2799,
+        category: "Operations",
+        features: "Workflow analysis, optimization suggestions, efficiency monitoring",
+        iconClass: "bx-git-branch",
+        iconBgClass: "bg-cyan-100",
+        gradientClass: "from-cyan-800 to-cyan-900",
+        teamId: opsFlowTeamId,
+        teamRole: "Process Optimization",
+        createdBy: 1
+      }
+    ];
+    
+    // Add all agents to database
+    [...lexiSuiteAgents, ...finGuardAgents, ...salesGenieAgents, ...mediAssistAgents, ...opsFlowAgents].forEach(agent => {
+      this.createAgent(agent);
+    });
   }
 
   // User methods

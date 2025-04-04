@@ -9,7 +9,8 @@ import AgentsPage from "@/pages/agents-page";
 import MarketplacePage from "@/pages/marketplace-page";
 import WorkflowsPage from "@/pages/workflows-page";
 import TeamsPage from "@/pages/teams-page";
-import TeamPage from "@/pages/team-page";
+import AgentWorkforcePage from "@/pages/agent-workforce-page";
+import AgentWorkforceDetail from "@/pages/agent-workforce-detail";
 import ProfilePage from "@/pages/profile-page";
 import BillingPage from "@/pages/billing-page";
 import SettingsPage from "@/pages/settings-page";
@@ -32,7 +33,8 @@ function Router() {
       <ProtectedRoute path="/marketplace" component={MarketplacePage} />
       <ProtectedRoute path="/workflows" component={WorkflowsPage} />
       <ProtectedRoute path="/teams" component={TeamsPage} />
-      <ProtectedRoute path="/teams/:id" component={TeamPage} />
+      <ProtectedRoute path="/agent-workforce" component={AgentWorkforcePage} />
+      <ProtectedRoute path="/teams/:id" component={AgentWorkforceDetail} />
       <ProtectedRoute path="/profile" component={ProfilePage} />
       <ProtectedRoute path="/billing" component={BillingPage} />
       <ProtectedRoute path="/settings" component={SettingsPage} />

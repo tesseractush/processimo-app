@@ -14,7 +14,8 @@ export default function Sidebar() {
     { path: "/agents", label: "My AI Agents", icon: "bx-bot" },
     { path: "/marketplace", label: "Marketplace", icon: "bx-store" },
     { path: "/workflows", label: "Workflows", icon: "bx-flow" },
-    { path: "/teams", label: "Agent Teams", icon: "bx-group" },
+    { path: "/agent-workforce", label: "Agent Workforce", icon: "bx-briefcase" },
+    { path: "/teams", label: "Teams", icon: "bx-group" },
   ];
   
   const accountItems = [
