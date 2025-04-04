@@ -53,14 +53,16 @@ export default function Sidebar() {
         <div className="px-4 mb-2 text-xs uppercase text-gray-400 font-semibold">Main</div>
         
         {navItems.map((item) => (
-          <Link key={item.path} href={item.path}>
-            <a className={cn(
+          <Link 
+            key={item.path} 
+            href={item.path}
+            className={cn(
               "flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded mx-2 mb-1",
               location === item.path && "bg-gray-800"
-            )}>
-              <i className={`bx ${item.icon} mr-3`}></i>
-              <span>{item.label}</span>
-            </a>
+            )}
+          >
+            <i className={`bx ${item.icon} mr-3`}></i>
+            <span>{item.label}</span>
           </Link>
         ))}
         
@@ -71,14 +73,16 @@ export default function Sidebar() {
             </div>
             
             {adminItems.map((item) => (
-              <Link key={item.path} href={item.path}>
-                <a className={cn(
+              <Link 
+                key={item.path} 
+                href={item.path}
+                className={cn(
                   "flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded mx-2 mb-1",
                   location === item.path && "bg-gray-800"
-                )}>
-                  <i className={`bx ${item.icon} mr-3`}></i>
-                  <span>{item.label}</span>
-                </a>
+                )}
+              >
+                <i className={`bx ${item.icon} mr-3`}></i>
+                <span>{item.label}</span>
               </Link>
             ))}
           </>
@@ -87,14 +91,16 @@ export default function Sidebar() {
         <div className="px-4 mt-6 mb-2 text-xs uppercase text-gray-400 font-semibold">Account</div>
         
         {accountItems.map((item) => (
-          <Link key={item.path} href={item.path}>
-            <a className={cn(
+          <Link 
+            key={item.path} 
+            href={item.path}
+            className={cn(
               "flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded mx-2 mb-1",
               location === item.path && "bg-gray-800"
-            )}>
-              <i className={`bx ${item.icon} mr-3`}></i>
-              <span>{item.label}</span>
-            </a>
+            )}
+          >
+            <i className={`bx ${item.icon} mr-3`}></i>
+            <span>{item.label}</span>
           </Link>
         ))}
       </nav>
