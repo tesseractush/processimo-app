@@ -5,6 +5,10 @@ import { storage } from "./storage";
 import { insertAgentSchema, insertWorkflowRequestSchema } from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
+import * as dotenv from "dotenv";
+
+// Load environment variables
+dotenv.config();
 
 // Initialize Stripe
 if (!process.env.STRIPE_SECRET_KEY) {
