@@ -95,6 +95,7 @@ export const workflowRequests = pgTable("workflow_requests", {
   name: text("name").notNull(),
   description: text("description").notNull(),
   complexity: text("complexity").notNull(), // basic, advanced, enterprise
+  priority: integer("priority").notNull(), // 1-10, 1 being highest
   integrations: text("integrations"), // comma-separated list of integrations
   status: text("status").notNull(), // pending, approved, rejected, completed
   teamId: integer("team_id").references(() => agentTeams.id),
@@ -155,7 +156,7 @@ export type WorkflowRequest = typeof workflowRequests.$inferSelect;
 
 // Login schema
 export const loginSchema = z.object({
-  email: z.string().email("Invalid email format"),
+  identifier: z.string().min(1, "Email or username is required"),
   password: z.string().min(1, "Password is required"),
 });
 

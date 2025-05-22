@@ -26,28 +26,14 @@ export default function QuickActions({ onRequestCustom }: QuickActionsProps) {
         </Link>
         
         <Link href="/workflows">
-          <a className="block p-4 bg-green-50 hover:bg-green-100 rounded-lg transition">
+          <a className="block p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition">
             <div className="flex items-center">
-              <div className="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-                <i className="bx bx-flow text-green-600"></i>
+              <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                <i className="bx bx-flow text-blue-600"></i>
               </div>
               <div className="ml-3">
-                <h3 className="text-sm font-medium text-gray-900">Create Workflow</h3>
-                <p className="text-xs text-gray-500">Automate your processes</p>
-              </div>
-            </div>
-          </a>
-        </Link>
-        
-        <Link href="/teams">
-          <a className="block p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
-                <i className="bx bx-group text-purple-600"></i>
-              </div>
-              <div className="ml-3">
-                <h3 className="text-sm font-medium text-gray-900">Manage Teams</h3>
-                <p className="text-xs text-gray-500">Collaborate with your team</p>
+                <h3 className="text-sm font-medium text-gray-900">Workflows</h3>
+                <p className="text-xs text-gray-500">Create and manage workflows</p>
               </div>
             </div>
           </a>
