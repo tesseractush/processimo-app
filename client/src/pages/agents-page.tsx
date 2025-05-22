@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 export default function AgentsPage() {
   const { user } = useAuth();
   
-  const { data: userAgents = [], isLoading } = useQuery<Agent[]>({
+  const { data: userAgents, isLoading } = useQuery({
     queryKey: ["/api/user/agents"],
   });
   

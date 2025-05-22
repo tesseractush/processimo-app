@@ -22,8 +22,8 @@ Processimo is a full-stack SaaS platform where users can subscribe to AI agents 
 
 1. Clone the repository:
    ```
-   git clone https://github.com/tesseractush/processimo-app.git
-   cd processimo-app
+   git clone <repository-url>
+   cd processimo
    ```
 
 2. Install dependencies:

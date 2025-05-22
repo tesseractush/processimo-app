@@ -98,7 +98,6 @@ export const workflowRequests = pgTable("workflow_requests", {
   integrations: text("integrations"), // comma-separated list of integrations
   status: text("status").notNull(), // pending, approved, rejected, completed
   teamId: integer("team_id").references(() => agentTeams.id),
-  priority: text("priority").notNull().default('medium'), // low, medium, high
   createdAt: timestamp("created_at").defaultNow(),
 });
 

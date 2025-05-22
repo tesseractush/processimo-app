@@ -25,23 +25,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // API Endpoints
   
   // Get all agent teams
-  app.get("/api/agent-teams", (req, res) => {
-    res.json([
-      {
-        id: 1,
-        name: "LexiSuite",
-        description: "AI-powered legal document generation.",
-        category: "Legal",
-        price: 9999,
-        target: "Law Firms",
-        impact: "Saves 80% of time",
-        workflow: {},
-        iconClass: "bx-gavel",
-        gradientClass: "from-blue-500 to-blue-700",
-        isPopular: true,
-        isFeatured: true
-      }
-    ]);
+  app.get("/api/agent-teams", async (req, res) => {
+    try {
+      const teams = await storage.getAllAgentTeams();
+      res.json(teams);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch agent teams" });
+    }
   });
   
   // Get featured agent teams
@@ -77,24 +67,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get all agents
-  app.get("/api/agents", (req, res) => {
-    res.json([
-      {
-        id: 1,
-        name: "Email Assistant",
-        description: "Automate email management.",
-        price: 999,
-        category: "Communication",
-        features: "Auto-reply, sort, filter",
-        isPopular: true,
-        isNew: false,
-        isEnterprise: false,
-        iconClass: "bx-envelope",
-        iconBgClass: "bg-blue-100",
-        gradientClass: "from-blue-500 to-blue-600"
-      }
-      // ...add more agents as needed
-    ]);
+  app.get("/api/agents", async (req, res) => {
+    try {
+      const agents = await storage.getAllAgents();
+      res.json(agents);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch agents" });
+    }
   });
 
   // Get featured agents
@@ -108,36 +87,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get user's subscribed agents
-  app.get("/api/user/agents", (req, res) => {
-    res.json([
-      {
-        id: 1,
-        name: "Email Assistant",
-        description: "Automate email management.",
-        price: 999,
-        category: "Communication",
-        features: "Auto-reply, sort, filter",
-        isPopular: true,
-        isNew: false,
-        isEnterprise: false,
-        iconClass: "bx-envelope",
-        iconBgClass: "bg-blue-100",
-        gradientClass: "from-blue-500 to-blue-600"
-      }
-    ]);
+  app.get("/api/user/agents", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    
+    try {
+      const userAgents = await storage.getUserAgents(req.user.id);
+      res.json(userAgents);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch user agents" });
+    }
   });
   
   // Get user's subscriptions
-  app.get("/api/user/subscriptions", (req, res) => {
-    res.json([
-      {
-        id: 1,
-        agentId: 1,
-        status: "active",
-        startDate: new Date().toISOString(),
-        endDate: null
-      }
-    ]);
+  app.get("/api/user/subscriptions", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    
+    try {
+      const subscriptions = await storage.getUserSubscriptions(req.user.id);
+      res.json(subscriptions);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch user subscriptions" });
+    }
   });
 
   // Create Stripe payment intent for agent subscription
@@ -313,31 +287,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get user workflow requests
-  app.get("/api/user/workflow-requests", (req, res) => {
-    res.json([
-      {
-        id: 1,
-        userId: 1,
-        name: "Contract Automation",
-        description: "Automate contract creation.",
-        complexity: "basic",
-        integrations: "Email, Slack",
-        status: "pending",
-        teamId: 1,
-        priority: "5",
-        createdAt: new Date().toISOString()
-      }
-    ]);
-  });
-
-  // Dummy API for dashboard stats
-  app.get("/api/user/stats", (req, res) => {
-    res.json({
-      activeAgents: 3,
-      automationsRun: 256,
-      timeSaved: "18h",
-      subscription: "Pay as you go"
-    });
+  app.get("/api/user/workflow-requests", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    
+    try {
+      const workflowRequests = await storage.getUserWorkflowRequests(req.user.id);
+      res.json(workflowRequests);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch workflow requests" });
+    }
   });
 
   // Admin routes
@@ -454,17 +414,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       res.status(500).json({ message: "Failed to update workflow request" });
     }
-  });
-
-  app.get("/api/user", (req, res) => {
-    res.json({
-      id: 1,
-      username: "testuser",
-      email: "testuser@example.com",
-      firstName: "Test",
-      lastName: "User",
-      role: "user"
-    });
   });
 
   const httpServer = createServer(app);

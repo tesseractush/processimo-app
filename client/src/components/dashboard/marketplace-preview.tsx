@@ -16,7 +16,7 @@ export default function MarketplacePreview({ agents }: MarketplacePreviewProps) 
   const { toast } = useToast();
   const featuredAgents = agents.slice(0, 3); // Show only the first 3 agents
   
-  const { data: userAgents = [], isLoading } = useQuery<Agent[]>({
+  const { data: userAgents } = useQuery({
     queryKey: ["/api/user/agents"],
   });
   
