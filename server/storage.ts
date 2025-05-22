@@ -1061,7 +1061,8 @@ export class MemStorage implements IStorage {
       id, 
       createdAt: now,
       integrations: insertRequest.integrations || null,
-      teamId: insertRequest.teamId || null
+      teamId: insertRequest.teamId || null,
+      priority: insertRequest.priority ?? "5", // Default to "5" if undefined
     };
     this.workflowRequests.set(id, request);
     return request;

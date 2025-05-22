@@ -14,7 +14,7 @@ export default function WorkflowsPage() {
   const { user } = useAuth();
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   
-  const { data: workflowRequests, isLoading } = useQuery({
+  const { data: workflowRequests = [], isLoading } = useQuery<WorkflowRequest[]>({
     queryKey: ["/api/user/workflow-requests"],
   });
   
@@ -65,7 +65,7 @@ export default function WorkflowsPage() {
                       {getStatusBadge(request.status)}
                     </div>
                     <CardDescription>
-                      {new Date(request.createdAt).toLocaleDateString()}
+                      {request.createdAt ? new Date(request.createdAt).toLocaleDateString() : "N/A"}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>

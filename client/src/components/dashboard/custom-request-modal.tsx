@@ -27,6 +27,7 @@ const formSchema = insertWorkflowRequestSchema.extend({
   slackIntegration: z.boolean().optional(),
   sheetsIntegration: z.boolean().optional(),
   otherIntegration: z.boolean().optional(),
+  priority: z.string().min(1, "Priority is required"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -45,6 +46,7 @@ export default function CustomRequestModal({ isOpen, onClose }: CustomRequestMod
       slackIntegration: false,
       sheetsIntegration: false,
       otherIntegration: false,
+      priority: "5",
     }
   });
   
@@ -61,7 +63,8 @@ export default function CustomRequestModal({ isOpen, onClose }: CustomRequestMod
         name: data.name,
         description: data.description,
         complexity: data.complexity,
-        integrations: integrations.join(", ")
+        integrations: integrations.join(", "),
+        priority: data.priority,
       };
       
       const res = await apiRequest("POST", "/api/workflow-requests", requestData);
@@ -177,6 +180,26 @@ export default function CustomRequestModal({ isOpen, onClose }: CustomRequestMod
                 <Label htmlFor="integration-other">Other (Specify in description)</Label>
               </div>
             </div>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="priority">Priority (1 = Highest, 10 = Lowest)</Label>
+            <Select
+              defaultValue={form.getValues("priority")}
+              onValueChange={(value) => form.setValue("priority", value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select priority" />
+              </SelectTrigger>
+              <SelectContent>
+                {[...Array(10)].map((_, i) => (
+                  <SelectItem key={i+1} value={(i+1).toString()}>{i+1}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {form.formState.errors.priority && (
+              <p className="text-sm text-red-500">{form.formState.errors.priority.message}</p>
+            )}
           </div>
           
           <DialogFooter className="pt-4">
