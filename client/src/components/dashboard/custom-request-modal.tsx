@@ -23,6 +23,7 @@ interface CustomRequestModalProps {
 const formSchema = insertWorkflowRequestSchema.extend({
   name: z.string().min(3, "Name must be at least 3 characters"),
   description: z.string().min(10, "Please provide a detailed description"),
+  priority: z.number().min(1).max(10),
   emailIntegration: z.boolean().optional(),
   slackIntegration: z.boolean().optional(),
   sheetsIntegration: z.boolean().optional(),
@@ -41,6 +42,7 @@ export default function CustomRequestModal({ isOpen, onClose }: CustomRequestMod
       name: "",
       description: "",
       complexity: "basic",
+      priority: 5,
       emailIntegration: false,
       slackIntegration: false,
       sheetsIntegration: false,
@@ -61,6 +63,7 @@ export default function CustomRequestModal({ isOpen, onClose }: CustomRequestMod
         name: data.name,
         description: data.description,
         complexity: data.complexity,
+        priority: data.priority,
         integrations: integrations.join(", ")
       };
       
@@ -140,6 +143,31 @@ export default function CustomRequestModal({ isOpen, onClose }: CustomRequestMod
                 <SelectItem value="enterprise">Enterprise (Complex workflow with multiple integrations)</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="priority">Priority Level</Label>
+            <Select 
+              defaultValue="5"
+              onValueChange={(value) => form.setValue("priority", parseInt(value))}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select priority level" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">1 - Highest Priority</SelectItem>
+                <SelectItem value="2">2</SelectItem>
+                <SelectItem value="3">3</SelectItem>
+                <SelectItem value="4">4</SelectItem>
+                <SelectItem value="5">5 - Medium Priority</SelectItem>
+                <SelectItem value="6">6</SelectItem>
+                <SelectItem value="7">7</SelectItem>
+                <SelectItem value="8">8</SelectItem>
+                <SelectItem value="9">9</SelectItem>
+                <SelectItem value="10">10 - Lowest Priority</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-sm text-gray-500">1 is the highest priority, 10 is the lowest</p>
           </div>
           
           <div className="space-y-2">

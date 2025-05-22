@@ -160,6 +160,7 @@ export default function AdminWorkflowRequests() {
               <TableRow>
                 <TableHead>Request Name</TableHead>
                 <TableHead>Complexity</TableHead>
+                <TableHead>Priority</TableHead>
                 <TableHead>Integrations</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Date</TableHead>
@@ -187,6 +188,17 @@ export default function AdminWorkflowRequests() {
                           : "bg-red-100 text-red-800"
                       }`}>
                         {request.complexity.charAt(0).toUpperCase() + request.complexity.slice(1)}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        request.priority <= 3
+                          ? "bg-red-100 text-red-800"
+                          : request.priority <= 7
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-green-100 text-green-800"
+                      }`}>
+                        Priority {request.priority}
                       </span>
                     </TableCell>
                     <TableCell>
@@ -271,6 +283,10 @@ export default function AdminWorkflowRequests() {
                     <div>
                       <h3 className="text-sm font-medium text-gray-500">Complexity</h3>
                       <p className="mt-1 capitalize">{selectedRequest.complexity}</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">Priority</h3>
+                      <p className="mt-1">Level {selectedRequest.priority}</p>
                     </div>
                     <div>
                       <h3 className="text-sm font-medium text-gray-500">Integrations</h3>
