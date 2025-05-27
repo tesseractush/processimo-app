@@ -4,13 +4,11 @@ Processimo is a full-stack SaaS platform where users can subscribe to AI agents 
 
 ## Features
 
-- Authentication with email/username, Google, and GitHub
+- Authentication with email/password, Google, and GitHub
 - Marketplace of AI agents and agent teams
 - Subscription and billing management with Stripe
 - Admin dashboard for managing agents and workflow requests
 - User profile and settings management
-- Custom workflow requests with priority levels
-- Real-time dashboard statistics
 
 ## Getting Started
 
@@ -64,28 +62,6 @@ Processimo is a full-stack SaaS platform where users can subscribe to AI agents 
    npm run dev
    ```
 
-## Features in Detail
-
-### Authentication
-- Login with email or username
-- Social login with Google and GitHub
-- Secure password management
-- Session-based authentication
-
-### Workflow Requests
-- Create custom workflow requests
-- Set priority levels (1-10, 1 being highest)
-- Specify complexity levels (Basic, Advanced, Enterprise)
-- Request integrations with various services
-- Track request status and progress
-
-### Dashboard
-- View active agents count
-- Track automations run
-- Monitor time saved
-- Check subscription status
-- Real-time statistics
-
 ## Stripe Integration
 
 This application uses Stripe for payment processing. To set up Stripe integration:
@@ -112,16 +88,6 @@ For testing, you can use Stripe's test card numbers:
 - Client code is in the `client` directory
 - Server code is in the `server` directory
 - Shared code is in the `shared` directory
-
-### Project Structure
-```
-processimo/
-├── client/           # Frontend React application
-├── server/           # Backend Express server
-├── shared/           # Shared types and utilities
-├── package.json      # Project dependencies
-└── README.md         # Project documentation
-```
 
 ## Scripts
 

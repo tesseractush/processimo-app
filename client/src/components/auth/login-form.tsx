@@ -21,7 +21,7 @@ export default function LoginForm() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      identifier: "",
+      email: "",
       password: ""
     }
   });
@@ -42,18 +42,18 @@ export default function LoginForm() {
     <div>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <Label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="identifier">
-            Email or Username
+          <Label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+            Email
           </Label>
           <Input 
-            type="text" 
-            id="identifier" 
+            type="email" 
+            id="email" 
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
-            {...form.register("identifier")}
-            aria-invalid={form.formState.errors.identifier ? "true" : "false"}
+            {...form.register("email")}
+            aria-invalid={form.formState.errors.email ? "true" : "false"}
           />
-          {form.formState.errors.identifier && (
-            <p className="mt-1 text-sm text-red-600">{form.formState.errors.identifier.message}</p>
+          {form.formState.errors.email && (
+            <p className="mt-1 text-sm text-red-600">{form.formState.errors.email.message}</p>
           )}
         </div>
         
