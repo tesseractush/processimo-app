@@ -72,7 +72,7 @@ export default function AgentWorkforceDetail() {
           <div className="p-6">
             <div className="max-w-3xl mx-auto text-center py-12">
               <h2 className="text-2xl font-bold mb-4">Workforce not found</h2>
-              <p className="text-gray-500 mb-6">The agent workforce you're looking for might have been removed or doesn't exist.</p>
+              <p className="text-black-500 mb-6">The agent workforce you're looking for might have been removed or doesn't exist.</p>
               <Button asChild>
                 <Link to="/agent-workforce">
                   <ArrowLeft className="mr-2 h-4 w-4" />
@@ -100,7 +100,7 @@ export default function AgentWorkforceDetail() {
               </div>
               
               <div className="container mx-auto relative z-10">
-                <Button variant="ghost" className="mb-8 text-white bg-white bg-opacity-20 hover:bg-opacity-30" asChild>
+                <Button variant="ghost" className="mb-8 text-black bg-white bg-opacity-20 hover:bg-opacity-30" asChild>
                   <Link to="/agent-workforce">
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back to Agent Workforces
@@ -110,7 +110,7 @@ export default function AgentWorkforceDetail() {
                 <div className="flex flex-col md:flex-row md:items-start gap-8">
                   <div className="flex-1">
                     <motion.h1 
-                      className="text-4xl md:text-5xl font-bold mb-4 text-white"
+                      className="text-4xl md:text-5xl font-bold mb-4 text-black"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6 }}
@@ -119,7 +119,7 @@ export default function AgentWorkforceDetail() {
                     </motion.h1>
                     
                     <motion.p 
-                      className="text-xl text-white text-opacity-90 mb-6"
+                      className="text-xl text-black text-opacity-90 mb-6"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.1 }}
@@ -133,8 +133,8 @@ export default function AgentWorkforceDetail() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                      <Target className="h-5 w-5 mr-2 text-white text-opacity-80" />
-                      <p className="text-white text-opacity-90">{team.target}</p>
+                      <Target className="h-5 w-5 mr-2 text-black text-opacity-80" />
+                      <p className="text-black text-opacity-90">{team.target}</p>
                     </motion.div>
                     
                     <motion.div 
@@ -143,8 +143,8 @@ export default function AgentWorkforceDetail() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.3 }}
                     >
-                      <TrendingUp className="h-5 w-5 mr-2 text-white text-opacity-80" />
-                      <p className="text-white text-opacity-90">{team.impact}</p>
+                      <TrendingUp className="h-5 w-5 mr-2 text-black text-opacity-80" />
+                      <p className="text-black text-opacity-90">{team.impact}</p>
                     </motion.div>
                   </div>
                   
@@ -159,26 +159,26 @@ export default function AgentWorkforceDetail() {
                         <i className={`bx ${team.iconClass} text-2xl text-white`}></i>
                       </div>
                       <div className="ml-4">
-                        <h3 className="text-lg font-bold text-white">Pricing</h3>
-                        <p className="text-3xl font-bold text-white">${(team.price / 100).toFixed(2)}</p>
-                        <p className="text-sm text-white text-opacity-90">per month</p>
+                        <h3 className="text-lg font-bold text-black">Pricing</h3>
+                        <p className="text-3xl font-bold text-black">${(team.price / 100).toFixed(2)}</p>
+                        <p className="text-sm text-black text-opacity-90">per month</p>
                       </div>
                     </div>
                     
                     <ul className="space-y-3 mb-6">
-                      <li className="flex text-white">
+                      <li className="flex text-black">
                         <ChevronRight className="h-5 w-5 mr-2 shrink-0" />
                         <span>Includes all {agents.length} specialized agents</span>
                       </li>
-                      <li className="flex text-white">
+                      <li className="flex text-black">
                         <ChevronRight className="h-5 w-5 mr-2 shrink-0" />
                         <span>Complete workflow automation</span>
                       </li>
-                      <li className="flex text-white">
+                      <li className="flex text-black">
                         <ChevronRight className="h-5 w-5 mr-2 shrink-0" />
                         <span>Seamless agent communication</span>
                       </li>
-                      <li className="flex text-white">
+                      <li className="flex text-black">
                         <ChevronRight className="h-5 w-5 mr-2 shrink-0" />
                         <span>Regular AI model updates</span>
                       </li>
@@ -209,10 +209,8 @@ export default function AgentWorkforceDetail() {
                 <div className="relative">
                   {/* Connector Line */}
                   <motion.div 
-                    className="absolute left-1/2 top-0 bottom-0 w-1 bg-gray-200 z-0"
-                    initial={{ height: 0 }}
-                    animate={{ height: isFlowchartInView ? "100%" : 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="absolute left-1/2 top-0 bottom-0 w-1 bg-gray-400 z-0"
+                    style={{ height: "100%" }}
                   ></motion.div>
                   
                   <div className="space-y-16 relative z-10">
@@ -220,9 +218,9 @@ export default function AgentWorkforceDetail() {
                       <motion.div 
                         key={index}
                         className={`flex items-center ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"} gap-8`}
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={isFlowchartInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.6, delay: 0.1 + index * 0.2 }}
+                        initial={{ opacity: 1, y: 50 }}
+                        animate={isFlowchartInView ? { opacity: 1, y: 1 } : {}}
+                        transition={{ duration: 0, delay: 0 + index * 0 }}
                       >
                         <div className="flex-1 md:max-w-md">
                           <motion.div 
@@ -236,11 +234,11 @@ export default function AgentWorkforceDetail() {
                             <div className="absolute top-0 right-0 w-20 h-20 bg-gray-100 rounded-full -mt-10 -mr-10 opacity-30"></div>
                             
                             <div className="relative z-10">
-                              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold mb-4">
+                              <div className="w-10 h-10 rounded-full bg-primary text-black flex items-center justify-center font-bold mb-4">
                                 {step.step}
                               </div>
                               <h3 className="text-lg font-bold mb-2">{step.agent}</h3>
-                              <p className="text-gray-600">{step.description}</p>
+                              <p className="text-black-600">{step.description}</p>
                               
                               {/* Find the relevant agent */}
                               {agents.find(agent => agent.name === step.agent) && (
@@ -258,9 +256,6 @@ export default function AgentWorkforceDetail() {
                         <div className="relative">
                           <motion.div 
                             className="w-12 h-12 rounded-full bg-white border-4 border-primary flex items-center justify-center z-20 relative"
-                            initial={{ scale: 0 }}
-                            animate={isFlowchartInView ? { scale: 1 } : {}}
-                            transition={{ type: "spring", stiffness: 300, delay: 0.1 + index * 0.2 }}
                           >
                             {index < workflowSteps.length - 1 ? (
                               <ArrowRight className={`h-6 w-6 text-primary ${index % 2 === 0 ? "rotate-0" : "rotate-180"}`} />
@@ -273,13 +268,7 @@ export default function AgentWorkforceDetail() {
                             className={`absolute top-1/2 transform -translate-y-1/2 h-1 bg-primary z-10 ${
                               index % 2 === 0 ? "right-12" : "left-12"
                             }`}
-                            style={{ 
-                              width: "10rem",
-                              maxWidth: "10rem"
-                            }}
-                            initial={{ width: 0 }}
-                            animate={isFlowchartInView ? { width: "10rem" } : { width: 0 }}
-                            transition={{ duration: 0.4, delay: 0.2 + index * 0.2 }}
+                            style={{ width: "10rem", maxWidth: "10rem" }}
                           ></motion.div>
                         </div>
                       </motion.div>
@@ -293,7 +282,7 @@ export default function AgentWorkforceDetail() {
             <section className="py-16 px-6 bg-gray-50">
               <div className="container mx-auto">
                 <h2 className="text-3xl font-bold mb-2 text-center">Meet the {team.name} Agents</h2>
-                <p className="text-gray-600 text-center mb-12">Specialized AI agents working together in perfect harmony</p>
+                <p className="text-black-600 text-center mb-12">Specialized AI agents working together in perfect harmony</p>
                 
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {agents.map((agent, index) => (
@@ -325,9 +314,9 @@ export default function AgentWorkforceDetail() {
                           </div>
                         </div>
                         
-                        <p className="text-sm text-gray-600 mb-4">{agent.description}</p>
+                        <p className="text-sm text-black-600 mb-4">{agent.description}</p>
                         
-                        <div className="text-sm text-gray-500 pt-3 border-t">
+                        <div className="text-sm text-black-500 pt-3 border-t">
                           <strong>Features:</strong> {agent.features}
                         </div>
                       </div>
@@ -338,7 +327,7 @@ export default function AgentWorkforceDetail() {
             </section>
             
             {/* CTA Section */}
-            <section className="py-12 px-6 bg-gradient-to-r from-primary to-indigo-600 text-white">
+            <section className="py-12 px-6 bg-gradient-to-r from-primary to-indigo-600 text-black">
               <div className="container mx-auto text-center">
                 <h2 className="text-3xl font-bold mb-4">Ready to transform your business?</h2>
                 <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">

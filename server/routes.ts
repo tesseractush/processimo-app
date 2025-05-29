@@ -6,6 +6,8 @@ import { insertAgentSchema, insertWorkflowRequestSchema } from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
 import * as dotenv from "dotenv";
+import express from "express";
+import passport from "passport";
 
 // Load environment variables
 dotenv.config();
@@ -19,6 +21,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Ensure body parsing middleware is applied before auth
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+
   // Set up authentication routes (/api/register, /api/login, /api/logout, /api/user)
   setupAuth(app);
 
@@ -418,8 +424,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Dashboard statistics routes
   app.get("/api/dashboard/stats", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
     try {
-      const userId = req.session.userId;
+      const userId = req.user.id;
       if (!userId) {
         return res.status(401).json({ error: "Unauthorized" });
       }
