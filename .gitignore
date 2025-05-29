@@ -10,3 +10,5 @@ vite.config.ts.*
 .env.test.local
 .env.production.local
 proocessimo-app
+server/routes.ts
+shared/schema.ts
