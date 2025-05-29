@@ -113,7 +113,7 @@ export default function AgentWorkforcePage() {
           <div className="absolute inset-0 bg-white bg-opacity-15 backdrop-blur-[1px]"></div>
           
           {/* Content */}
-          <div className="relative z-10 h-full p-6 flex flex-col text-black">
+          <div className="relative z-10 h-full p-6 flex flex-col text-white">
             <div className="flex items-center mb-4">
               <div className="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
                 <i className={`bx ${team.iconClass} text-2xl`}></i>
@@ -144,7 +144,7 @@ export default function AgentWorkforcePage() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="w-full border-white border-opacity-30 bg-white bg-opacity-20 hover:bg-opacity-30 text-black"
+                  className="w-full border-white border-opacity-30 bg-white bg-opacity-20 hover:bg-opacity-30 text-white"
                   onClick={() => {
                     toast({
                       title: "Coming soon!",
@@ -179,21 +179,21 @@ export default function AgentWorkforcePage() {
   const WorkflowSection = () => {
     const activeTeam = agentTeams.find(team => team.id === activeTeamId);
     
-    const teamToDisplay = activeTeam || agentTeams[0];
-    if (!teamToDisplay) return null; // Still hide if no teams are loaded
-    const workflowSteps = teamToDisplay.workflow ? (teamToDisplay.workflow as any).steps || [] : [];
+    if (!activeTeam) return null;
+    
+    const workflowSteps = activeTeam.workflow ? (activeTeam.workflow as any).steps || [] : [];
     
     return (
       <Card className="mb-8 overflow-hidden border-none shadow-lg">
-        <div className={`h-1 w-full bg-gradient-to-r ${teamToDisplay.gradientClass}`}></div>
+        <div className={`h-1 w-full bg-gradient-to-r ${activeTeam.gradientClass}`}></div>
         <CardHeader className="pb-2 border-b">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
               <CardTitle className="text-xl flex items-center">
-                <i className={`bx ${teamToDisplay.iconClass} text-primary mr-2`}></i>
-                {teamToDisplay.name} Workflow
+                <i className={`bx ${activeTeam.iconClass} text-primary mr-2`}></i>
+                {activeTeam.name} Workflow
               </CardTitle>
-              <CardDescription className="text-black">{teamToDisplay.description}</CardDescription>
+              <CardDescription>{activeTeam.description}</CardDescription>
             </div>
             <Button 
               size="sm" 
@@ -201,7 +201,7 @@ export default function AgentWorkforcePage() {
               className="mt-2 md:mt-0"
               asChild
             >
-              <Link to={`/teams/${teamToDisplay.id}`}>
+              <Link to={`/teams/${activeTeam.id}`}>
                 View Details
               </Link>
             </Button>
@@ -216,17 +216,17 @@ export default function AgentWorkforcePage() {
               {workflowSteps.map((step: any, index: number) => (
                 <motion.div 
                   key={index}
-                  initial={{ opacity: 1, y: 50 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0 }}
+                  transition={{ delay: index * 0.1 }}
                   className="flex"
                 >
                   <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground shrink-0 mr-4 z-10">
                     {step.step}
                   </div>
                   <div className="bg-card rounded-lg p-3 border shadow-sm flex-1">
-                    <p className="mb-1 text-sm text-black">{step.description}</p>
-                    <Badge variant="secondary" className="text-black">
+                    <p className="mb-1 text-sm">{step.description}</p>
+                    <Badge variant="secondary">
                       {step.agent}
                     </Badge>
                   </div>
@@ -242,8 +242,8 @@ export default function AgentWorkforcePage() {
                 key={team.id}
                 className={`w-8 h-8 rounded-full flex items-center justify-center ${
                   team.id === activeTeamId
-                    ? `bg-primary text-black`
-                    : `bg-gray-100 text-black-900 hover:bg-gray-200`
+                    ? `bg-primary text-white`
+                    : `bg-gray-100 text-gray-500 hover:bg-gray-200`
                 }`}
                 onClick={() => setActiveTeamId(team.id)}
                 title={team.name}
@@ -265,8 +265,8 @@ export default function AgentWorkforcePage() {
       <main className="flex-1 overflow-y-auto pt-16 md:pt-0">
         <div className="p-6">
           <header className="mb-8">
-            <h1 className="text-2xl font-bold text-black-900">AI Agent Workforce</h1>
-            <p className="text-black mt-1">
+            <h1 className="text-2xl font-bold text-gray-900">AI Agent Workforce</h1>
+            <p className="text-gray-600 mt-1">
               Specialized teams of AI agents working together to solve complex problems
             </p>
           </header>
@@ -277,7 +277,7 @@ export default function AgentWorkforcePage() {
           {/* Search and filter */}
           <div className="mb-6">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <Input
                 placeholder="Search workforces by name, description, or category..."
                 value={searchQuery}
@@ -328,8 +328,8 @@ export default function AgentWorkforcePage() {
                     <i className="bx bx-search text-blue-600 text-3xl"></i>
                   </div>
                 </div>
-                <h3 className="text-lg font-medium text-black-900 mb-2">No Agent Workforces Found</h3>
-                <p className="text-black mb-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-2">No Agent Workforces Found</h3>
+                <p className="text-gray-600 mb-6">
                   {searchQuery ? 
                     `We couldn't find any workforces matching "${searchQuery}"` : 
                     "There are no agent workforces available at the moment."}

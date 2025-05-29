@@ -156,7 +156,7 @@ export type WorkflowRequest = typeof workflowRequests.$inferSelect;
 
 // Login schema
 export const loginSchema = z.object({
-  identifier: z.string().min(1, "Email or username is required").refine(value => z.string().email().safeParse(value).success || z.string().min(1).safeParse(value).success, "Invalid email or username format"),
+  identifier: z.string().min(1, "Email or username is required"),
   password: z.string().min(1, "Password is required"),
 });
 

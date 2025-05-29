@@ -56,26 +56,17 @@ export function setupAuth(app: Express) {
   // Local strategy using email instead of username
   passport.use(
     new LocalStrategy(
-      { usernameField: "identifier" },
-      async (identifier, password, done) => {
+      { usernameField: "email" },
+      async (email, password, done) => {
         try {
-          let user = null;
-          // Check if the identifier is likely an email
-          if (identifier.includes("@")) {
-            user = await storage.getUserByEmail(identifier);
-          } else {
-            // Otherwise, assume it's a username
-            user = await storage.getUserByUsername(identifier);
-          }
-
-          // If no user found or password doesn't match
+          const user = await storage.getUserByEmail(email);
           if (!user || !(await comparePasswords(password, user.password))) {
-            return done(null, false, { message: "Invalid credentials" }); // Generic error message for security
+            return done(null, false, { message: "Invalid email or password" });
+          } else {
+            return done(null, user);
           }
-          // Authentication successful
-          return done(null, user);
         } catch (error) {
-          return done(error); // Handle potential database errors
+          return done(error);
         }
       },
     ),
