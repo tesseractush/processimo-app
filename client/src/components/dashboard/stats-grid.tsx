@@ -1,17 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 
-interface DashboardStats {
-  activeAgents: number;
-  automationsRun: number;
-  timeSaved: string;
-  subscription: string;
-}
-
 export default function StatsGrid() {
-  const { data: stats, isLoading } = useQuery<DashboardStats>({
-    queryKey: ["/api/dashboard/stats"],
+  const { data: userAgents, isLoading: isLoadingAgents } = useQuery({
+    queryKey: ["/api/user/agents"],
   });
+  
+  // This would typically come from the API, using mock data for now
+  const stats = {
+    activeAgents: userAgents?.length || 0,
+    automationsRun: 256,
+    timeSaved: "18h",
+    subscription: "Pay as you go"
+  };
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -22,17 +23,17 @@ export default function StatsGrid() {
             <i className="bx bx-bot"></i>
           </span>
         </div>
-        {isLoading ? (
+        {isLoadingAgents ? (
           <div className="h-8 flex items-center mt-2">
             <Loader2 className="h-5 w-5 animate-spin text-primary" />
           </div>
         ) : (
-          <p className="mt-2 text-3xl font-semibold text-gray-900">{stats?.activeAgents || 0}</p>
+          <p className="mt-2 text-3xl font-semibold text-gray-900">{stats.activeAgents}</p>
         )}
-        {!isLoading && stats?.activeAgents > 0 && (
+        {!isLoadingAgents && userAgents && userAgents.length > 0 && (
           <p className="mt-2 text-sm text-green-600 flex items-center">
             <i className="bx bx-up-arrow-alt"></i>
-            <span className="ml-1">+{Math.max(1, Math.floor(stats.activeAgents / 2))} from last month</span>
+            <span className="ml-1">+{Math.max(1, Math.floor(userAgents.length / 2))} from last month</span>
           </p>
         )}
       </div>
@@ -44,15 +45,10 @@ export default function StatsGrid() {
             <i className="bx bx-play-circle"></i>
           </span>
         </div>
-        {isLoading ? (
-          <div className="h-8 flex items-center mt-2">
-            <Loader2 className="h-5 w-5 animate-spin text-primary" />
-          </div>
-        ) : (
-          <p className="mt-2 text-3xl font-semibold text-gray-900">{stats?.automationsRun || 0}</p>
-        )}
-        <p className="mt-2 text-sm text-gray-500 flex items-center">
-          <span>Total automations completed</span>
+        <p className="mt-2 text-3xl font-semibold text-gray-900">{stats.automationsRun}</p>
+        <p className="mt-2 text-sm text-green-600 flex items-center">
+          <i className="bx bx-up-arrow-alt"></i>
+          <span className="ml-1">+24% from last week</span>
         </p>
       </div>
       
@@ -63,15 +59,10 @@ export default function StatsGrid() {
             <i className="bx bx-time"></i>
           </span>
         </div>
-        {isLoading ? (
-          <div className="h-8 flex items-center mt-2">
-            <Loader2 className="h-5 w-5 animate-spin text-primary" />
-          </div>
-        ) : (
-          <p className="mt-2 text-3xl font-semibold text-gray-900">{stats?.timeSaved || "0h"}</p>
-        )}
-        <p className="mt-2 text-sm text-gray-500 flex items-center">
-          <span>Saved this month</span>
+        <p className="mt-2 text-3xl font-semibold text-gray-900">{stats.timeSaved}</p>
+        <p className="mt-2 text-sm text-green-600 flex items-center">
+          <i className="bx bx-up-arrow-alt"></i>
+          <span className="ml-1">Saved this month</span>
         </p>
       </div>
       
@@ -82,13 +73,7 @@ export default function StatsGrid() {
             <i className="bx bx-credit-card"></i>
           </span>
         </div>
-        {isLoading ? (
-          <div className="h-8 flex items-center mt-2">
-            <Loader2 className="h-5 w-5 animate-spin text-primary" />
-          </div>
-        ) : (
-          <p className="mt-2 text-3xl font-semibold text-gray-900">{stats?.subscription || "Free"}</p>
-        )}
+        <p className="mt-2 text-3xl font-semibold text-gray-900">{stats.subscription}</p>
         <p className="mt-2 text-sm text-gray-500 flex items-center">
           <span>Pay only for what you use</span>
         </p>

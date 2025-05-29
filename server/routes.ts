@@ -422,51 +422,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Dashboard statistics routes
-  app.get("/api/dashboard/stats", async (req, res) => {
-    if (!req.isAuthenticated()) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-    try {
-      const userId = req.user.id;
-      if (!userId) {
-        return res.status(401).json({ error: "Unauthorized" });
-      }
-
-      // Get user's active agents
-      const userAgents = await storage.getUserAgents(userId);
-      const activeAgents = userAgents.length;
-
-      // Get user's subscriptions to calculate automations run
-      const userSubscriptions = await storage.getUserSubscriptions(userId);
-      const automationsRun = userSubscriptions.reduce((total, sub) => {
-        // For now, we'll use a simple calculation based on subscription duration
-        // In a real app, you'd track actual automation runs
-        const daysSinceStart = Math.floor((Date.now() - new Date(sub.startDate).getTime()) / (1000 * 60 * 60 * 24));
-        return total + Math.max(0, daysSinceStart * 2); // Assuming 2 automations per day per subscription
-      }, 0);
-
-      // Calculate time saved based on automations run
-      // Assuming each automation saves 30 minutes on average
-      const minutesSaved = automationsRun * 30;
-      const hoursSaved = Math.floor(minutesSaved / 60);
-      const timeSaved = `${hoursSaved}h`;
-
-      // Determine subscription type based on number of active subscriptions
-      const subscription = userSubscriptions.length > 0 ? "Pay as you go" : "Free";
-
-      res.json({
-        activeAgents,
-        automationsRun,
-        timeSaved,
-        subscription
-      });
-    } catch (error) {
-      console.error("Error fetching dashboard stats:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  });
-
   const httpServer = createServer(app);
 
   return httpServer;
